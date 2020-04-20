@@ -22,7 +22,7 @@ namespace MiniPaint
             InitializeComponent();
             openFileDialog.Filter = "Grafika BMP|*.bmp|Grafika PNG|*.png|Grafika JPG|*.jpg";
             saveFileDialog.Filter = "Grafika BMP|*.bmp|Grafika PNG|*.png|Grafika JPG|*.jpg";
-            myPen = new Pen(Color.Red, 5); ///inicjalizacja Pena
+            myPen = new Pen(buttonColor.BackColor, (float)numericUpDownWidth.Value); ///inicjalizacja Pena
             myPen.EndCap = myPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
         }
 
@@ -87,6 +87,25 @@ namespace MiniPaint
                 //graphics.DrawLine(new Pen(Color.Red, 5), tempPoint, e.Location);
                 pictureBoxMyImage.Refresh();
             }*/
+        }
+
+        private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void numericUpDownWidth_ValueChanged(object sender, EventArgs e)
+        {
+            myPen.Width = (float)numericUpDownWidth.Value;
+        }
+
+        private void buttonColor_Click(object sender, EventArgs e)
+        {
+            if(colorDialog.ShowDialog() == DialogResult.OK)
+            {
+                buttonColor.BackColor = colorDialog.Color;
+                myPen.Color = colorDialog.Color;
+            }
         }
     }
 }
