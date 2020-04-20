@@ -39,15 +39,18 @@
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // pictureBoxMyImage
             // 
             this.pictureBoxMyImage.Location = new System.Drawing.Point(124, 70);
-            this.pictureBoxMyImage.Name = "pictureBox1";
+            this.pictureBoxMyImage.Name = "pictureBoxMyImage";
             this.pictureBoxMyImage.Size = new System.Drawing.Size(384, 251);
             this.pictureBoxMyImage.TabIndex = 0;
             this.pictureBoxMyImage.TabStop = false;
+            this.pictureBoxMyImage.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMyImage_MouseDown);
+            this.pictureBoxMyImage.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMyImage_MouseMove);
+            this.pictureBoxMyImage.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pictureBoxMyImage_MouseUp);
             // 
-            // openFileDialog1
+            // openFileDialog
             // 
             this.openFileDialog.FileName = "openFileDialog";
             // 
@@ -75,14 +78,14 @@
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(270, 34);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(158, 34);
             this.saveToolStripMenuItem.Text = "Open";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem1
             // 
             this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(270, 34);
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(158, 34);
             this.saveToolStripMenuItem1.Text = "Save";
             this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
             // 

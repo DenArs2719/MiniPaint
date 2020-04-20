@@ -52,5 +52,25 @@ namespace MiniPaint
                 pictureBoxMyImage.Image.Save(saveFileDialog.FileName, imageFormat);
             }
         }
+
+        private void pictureBoxMyImage_MouseDown(object sender, MouseEventArgs e)
+        {
+            if(e.Button == MouseButtons.Left)
+            {
+                Graphics graphics = Graphics.FromImage(pictureBoxMyImage.Image); ///z naszego obrazka tworzymy grafikę
+                graphics.DrawEllipse(new Pen(Color.Red), e.X,e.Y,20,20);///w mejsce gzie kliknemy będzie narysowany ellipse
+                pictureBoxMyImage.Refresh(); ///odresowanie image  
+            }
+        }
+
+        private void pictureBoxMyImage_MouseMove(object sender, MouseEventArgs e)
+        {
+
+        }
+
+        private void pictureBoxMyImage_MouseUp(object sender, MouseEventArgs e)
+        {
+
+        }
     }
 }
