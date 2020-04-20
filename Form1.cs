@@ -16,7 +16,8 @@ namespace MiniPaint
     {
         Graphics graphics;
         Point tempPoint; ///punkt pomocniczy
-        Pen myPen; 
+        Pen myPen;
+        SolidBrush solidBrush;  ///fill dla figury
         public Form1()
         {
             InitializeComponent();
@@ -24,6 +25,14 @@ namespace MiniPaint
             saveFileDialog.Filter = "Grafika BMP|*.bmp|Grafika PNG|*.png|Grafika JPG|*.jpg";
             myPen = new Pen(buttonColor.BackColor, (float)numericUpDownWidth.Value); ///inicjalizacja Pena
             myPen.EndCap = myPen.StartCap = System.Drawing.Drawing2D.LineCap.Round;
+            solidBrush = new SolidBrush(Color.Black);
+            newToolStripMenuItem_Click(null, null);
+        }
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            pictureBoxMyImage.Image = new Bitmap(800,600); 
+            graphics = Graphics.FromImage(pictureBoxMyImage.Image);
+            graphics.Clear(Color.White);
         }
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
@@ -63,8 +72,6 @@ namespace MiniPaint
         {
             if(e.Button == MouseButtons.Left)
             {
-                //graphics.DrawEllipse(new Pen(Color.Red), e.X,e.Y,20,20);///w mejsce gzie kliknemy będzie narysowany ellipse
-                //pictureBoxMyImage.Refresh(); ///odresowanie image  
                 tempPoint = e.Location; ///zapamientujemy punkt
             }
         }
@@ -73,20 +80,41 @@ namespace MiniPaint
         {
             if(e.Button == MouseButtons.Left)
             {
-                graphics.DrawLine(myPen, tempPoint, e.Location);
-                pictureBoxMyImage.Refresh();
+                if(radioButtonCurve.Checked)
+                {
+                    graphics.DrawLine(myPen, tempPoint, e.Location);
+                    pictureBoxMyImage.Refresh();
+                    tempPoint = e.Location;
+                }
             }
-            tempPoint = e.Location;
+            
            
         }
 
         private void pictureBoxMyImage_MouseUp(object sender, MouseEventArgs e)
         {
-           /*( if (e.Button == MouseButtons.Left)
+            if (e.Button == MouseButtons.Left)
             {
-                //graphics.DrawLine(new Pen(Color.Red, 5), tempPoint, e.Location);
+                if (radioButtonCurve.Checked)
+                {
+                    graphics.DrawLine(myPen, tempPoint, e.Location);
+                }
+                else if(radioButtonLine.Checked)
+                {
+                    graphics.DrawLine(myPen, tempPoint, e.Location);
+                }
+                else if (radioButtonRectangle.Checked)
+                {
+                    graphics.DrawRectangle(myPen,Math.Min(tempPoint.X,e.X),Math.Min(tempPoint.Y,e.Y),Math.Abs(tempPoint.X - e.X),Math.Abs(tempPoint.Y - e.Y));
+                    graphics.FillRectangle(solidBrush, Math.Min(tempPoint.X, e.X), Math.Min(tempPoint.Y, e.Y), Math.Abs(tempPoint.X - e.X), Math.Abs(tempPoint.Y - e.Y));
+                }
+                else if (radioButtonEllipse.Checked)
+                {
+                    graphics.DrawEllipse(myPen, Math.Min(tempPoint.X, e.X), Math.Min(tempPoint.Y, e.Y), Math.Abs(tempPoint.X - e.X), Math.Abs(tempPoint.Y - e.Y));
+                    graphics.FillEllipse(solidBrush, Math.Min(tempPoint.X, e.X), Math.Min(tempPoint.Y, e.Y), Math.Abs(tempPoint.X - e.X), Math.Abs(tempPoint.Y - e.Y));
+                }
                 pictureBoxMyImage.Refresh();
-            }*/
+            }
         }
 
         private void tableLayoutPanel1_Paint(object sender, PaintEventArgs e)
@@ -105,6 +133,15 @@ namespace MiniPaint
             {
                 buttonColor.BackColor = colorDialog.Color;
                 myPen.Color = colorDialog.Color;
+            }
+        }
+
+        private void buttonbuttonColorKsztalt_Click(object sender, EventArgs e)
+        {
+            if (colorDialogKsztalt.ShowDialog() == DialogResult.OK)
+            {
+                buttonColorKsztalt.BackColor = colorDialogKsztalt.Color;
+                solidBrush.Color = colorDialogKsztalt.Color;
             }
         }
     }
